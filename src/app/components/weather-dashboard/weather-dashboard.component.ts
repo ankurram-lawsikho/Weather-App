@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { WeatherService } from '../../services/weather.service';
 import { WeatherCardComponent } from '../weather-card/weather-card.component';
 import { WeatherCardWrapperComponent } from '../weather-card-wrapper/weather-card-wrapper.component';
@@ -10,7 +11,7 @@ import { Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-weather-dashboard',
   standalone: true,
-  imports: [CommonModule, WeatherCardComponent, WeatherCardWrapperComponent, SearchComponent],
+  imports: [CommonModule, RouterModule, WeatherCardComponent, WeatherCardWrapperComponent, SearchComponent],
   templateUrl: './weather-dashboard.component.html',
   styleUrls: ['./weather-dashboard.component.scss']
 })

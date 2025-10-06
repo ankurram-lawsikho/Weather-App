@@ -15,7 +15,12 @@
   <div class="content" *ngIf="!loading && !error">
     <!-- Current Weather -->
     <div class="current-weather-section" *ngIf="currentWeather">
-      <h2>Current Weather</h2>
+      <div class="section-header">
+        <h2>Current Weather</h2>
+        <a [routerLink]="['/weather', currentWeather.city]" class="view-details-link">
+          View Details →
+        </a>
+      </div>
       <app-weather-card-wrapper>
         <app-weather-card 
           [weather]="currentWeather" 

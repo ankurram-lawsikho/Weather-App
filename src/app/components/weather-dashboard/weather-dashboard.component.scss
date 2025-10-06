@@ -61,11 +61,33 @@
 }
 
 .current-weather-section {
-  h2 {
-    color: #34495e;
-    font-size: 1.8rem;
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
-    font-weight: 400;
+    
+    h2 {
+      color: #34495e;
+      font-size: 1.8rem;
+      margin: 0;
+      font-weight: 400;
+    }
+    
+    .view-details-link {
+      color: #3498db;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      background: rgba(52, 152, 219, 0.1);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: rgba(52, 152, 219, 0.2);
+        transform: translateY(-2px);
+      }
+    }
   }
 }
 
