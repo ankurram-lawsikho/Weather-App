@@ -1,0 +1,53 @@
+<div class="weather-dashboard" #weatherContainer>
+  <header class="dashboard-header">
+    <h1>Weather Dashboard</h1>
+    <p class="subtitle">Stay informed about weather conditions worldwide</p>
+  </header>
+
+  <div class="search-section">
+    <app-search 
+      (citySearch)="onCitySearch($event)"
+      [savedCities]="savedCities"
+      (citySelect)="onCitySelect($event)">
+    </app-search>
+  </div>
+
+  <div class="content" *ngIf="!loading && !error">
+    <!-- Current Weather -->
+    <div class="current-weather-section" *ngIf="currentWeather">
+      <h2>Current Weather</h2>
+      <app-weather-card-wrapper>
+        <app-weather-card 
+          [weather]="currentWeather" 
+          [isCurrent]="true">
+        </app-weather-card>
+      </app-weather-card-wrapper>
+    </div>
+
+    <!-- Forecast -->
+    <div class="forecast-section" *ngIf="forecast.length > 0">
+      <h2>5-Day Forecast</h2>
+      <div class="forecast-grid">
+        <app-weather-card-wrapper *ngFor="let day of forecast">
+          <app-weather-card 
+            [weather]="day"
+            [isCurrent]="false">
+          </app-weather-card>
+        </app-weather-card-wrapper>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Loading weather data...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="error" *ngIf="error">
+    <div class="error-icon">⚠️</div>
+    <p>{{ error }}</p>
+    <button class="retry-btn" (click)="getWeatherByCity('London')">Try Again</button>
+  </div>
+</div>

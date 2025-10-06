@@ -1,0 +1,64 @@
+<div class="weather-card" [class.current]="isCurrent">
+  <div class="card-header">
+    <div class="location-info">
+      <h3 class="city-name">{{ weather.city }}</h3>
+      <p class="country">{{ weather.country }}</p>
+    </div>
+    <div class="date-time">
+      <p class="date">{{ formatDate(weather.date) }}</p>
+      <p class="time" *ngIf="isCurrent">{{ formatTime(weather.date) }}</p>
+    </div>
+  </div>
+
+  <div class="weather-main">
+    <div class="temperature-section">
+      <div class="temperature" [style.color]="getTemperatureColor(weather.temperature)">
+        {{ weather.temperature }}°C
+      </div>
+      <div class="feels-like">
+        Feels like {{ weather.feelsLike }}°C
+      </div>
+    </div>
+    
+    <div class="weather-icon">
+      {{ getWeatherIcon(weather.condition) }}
+    </div>
+  </div>
+
+  <div class="weather-details">
+    <div class="condition">
+      <span class="condition-text">{{ weather.condition }}</span>
+    </div>
+    
+    <!-- Show detailed weather info only for current weather -->
+    <div class="details-grid" *ngIf="isCurrent">
+      <div class="detail-item">
+        <span class="detail-label">Humidity</span>
+        <span class="detail-value">{{ weather.humidity }}%</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Wind</span>
+        <span class="detail-value">{{ weather.windSpeed }} km/h</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Pressure</span>
+        <span class="detail-value">{{ weather.pressure }} hPa</span>
+      </div>
+      <div class="detail-item">
+        <span class="detail-label">Visibility</span>
+        <span class="detail-value">{{ weather.visibility }} km</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="temperature-range" *ngIf="!isCurrent">
+    <div class="min-temp">
+      <span class="temp-label">Min</span>
+      <span class="temp-value">{{ weather.minTemp }}°C</span>
+    </div>
+    <div class="max-temp">
+      <span class="temp-label">Max</span>
+      <span class="temp-value">{{ weather.maxTemp }}°C</span>
+    </div>
+  </div>
+</div>

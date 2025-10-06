@@ -1,0 +1,49 @@
+<div class="search-container">
+  <div class="search-box">
+    <div class="search-input-wrapper">
+      <input
+        #searchInput
+        type="text"
+        [(ngModel)]="searchQuery"
+        (keypress)="onKeyPress($event)"
+        (focus)="onInputFocus()"
+        (blur)="onInputBlur()"
+        placeholder="Enter city name..."
+        class="search-input"
+      />
+      <button 
+        (click)="onSearch()" 
+        class="search-button"
+        [disabled]="!searchQuery.trim()">
+        <span class="search-icon">🔍</span>
+      </button>
+    </div>
+    
+    <!-- Suggestions Dropdown -->
+    <div class="suggestions" *ngIf="showSuggestions && filteredCities.length > 0">
+      <div class="suggestions-header">
+        <span>Recent searches</span>
+      </div>
+      <div 
+        *ngFor="let city of filteredCities" 
+        class="suggestion-item"
+        (click)="selectCity(city)">
+        <span class="city-icon">📍</span>
+        <span class="city-name">{{ city }}</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Quick Access Cities -->
+  <div class="quick-cities" *ngIf="savedCities.length > 0">
+    <span class="quick-label">Quick access:</span>
+    <div class="city-chips">
+      <button 
+        *ngFor="let city of savedCities.slice(0, 5)" 
+        class="city-chip"
+        (click)="selectCity(city)">
+        {{ city }}
+      </button>
+    </div>
+  </div>
+</div>
