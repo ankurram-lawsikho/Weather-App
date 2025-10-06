@@ -93,6 +93,14 @@
       font-weight: 500;
       text-transform: capitalize;
     }
+    
+    .weather-tip {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      margin: 8px 0 0 0;
+      font-style: italic;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
   }
   
   .details-grid {

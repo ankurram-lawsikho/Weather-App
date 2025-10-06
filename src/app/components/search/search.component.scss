@@ -30,9 +30,18 @@
   outline: none;
   font-size: 1rem;
   background: transparent;
+  transition: all 0.3s ease;
   
   &::placeholder {
     color: #bdc3c7;
+  }
+  
+  &.valid {
+    border-left: 4px solid #27ae60;
+  }
+  
+  &.invalid {
+    border-left: 4px solid #e74c3c;
   }
 }
 

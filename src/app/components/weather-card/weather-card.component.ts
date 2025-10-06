@@ -1,11 +1,23 @@
 import { Component, Input, OnChanges, SimpleChanges, DoCheck, KeyValueDiffers, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherData } from '../../models/weather.model';
+import { WeatherIconPipe } from '../../pipes/weather-icon.pipe';
+import { TimeFormatPipe } from '../../pipes/time-format.pipe';
+import { WeatherDescriptionPipe } from '../../pipes/weather-description.pipe';
+import { WeatherHighlightDirective } from '../../directives/weather-highlight.directive';
+import { TemperatureColorDirective } from '../../directives/temperature-color.directive';
 
 @Component({
   selector: 'app-weather-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule, 
+    WeatherIconPipe, 
+    TimeFormatPipe, 
+    WeatherDescriptionPipe,
+    WeatherHighlightDirective,
+    TemperatureColorDirective
+  ],
   templateUrl: './weather-card.component.html',
   styleUrls: ['./weather-card.component.scss']
 })
@@ -69,48 +81,12 @@ export class WeatherCardComponent implements OnChanges, DoCheck, AfterViewChecke
     console.log('Handling weather data changes...');
   }
 
-  getWeatherIcon(condition: string): string {
-    const conditionLower = condition.toLowerCase();
-    
-    if (conditionLower.includes('clear') || conditionLower.includes('sunny')) {
-      return '☀️';
-    } else if (conditionLower.includes('cloud')) {
-      return '☁️';
-    } else if (conditionLower.includes('rain')) {
-      return '🌧️';
-    } else if (conditionLower.includes('snow')) {
-      return '❄️';
-    } else if (conditionLower.includes('storm') || conditionLower.includes('thunder')) {
-      return '⛈️';
-    } else if (conditionLower.includes('fog') || conditionLower.includes('mist')) {
-      return '🌫️';
-    } else {
-      return '🌤️';
-    }
-  }
-
-  getTemperatureColor(temp: number): string {
-    if (temp < 0) return '#3498db'; // Blue for cold
-    if (temp < 10) return '#5dade2'; // Light blue
-    if (temp < 20) return '#58d68d'; // Green
-    if (temp < 30) return '#f7dc6f'; // Yellow
-    return '#e74c3c'; // Red for hot
-  }
-
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', { 
       weekday: 'short', 
       month: 'short', 
       day: 'numeric' 
-    });
-  }
-
-  formatTime(dateString: string): string {
-    const date = new Date(dateString);
-    return date.toLocaleTimeString('en-US', { 
-      hour: '2-digit', 
-      minute: '2-digit' 
     });
   }
 }

@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CityValidatorDirective } from '../../directives/city-validator.directive';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, CityValidatorDirective],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })

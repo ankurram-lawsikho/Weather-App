@@ -1,64 +1,65 @@
-<div class="weather-card" [class.current]="isCurrent">
+<div class="weather-card" [class.current]="isCurrent" appWeatherHighlight [highlightColor]="'lightblue'">
   <div class="card-header">
     <div class="location-info">
-      <h3 class="city-name">{{ weather.city }}</h3>
-      <p class="country">{{ weather.country }}</p>
+      <h3 class="city-name">{{ weather.city | uppercase }}</h3>
+      <p class="country">{{ weather.country | titlecase }}</p>
     </div>
     <div class="date-time">
-      <p class="date">{{ formatDate(weather.date) }}</p>
-      <p class="time" *ngIf="isCurrent">{{ formatTime(weather.date) }}</p>
+      <p class="date">{{ weather.date | date:'EEEE, MMM d' }}</p>
+      <p class="time" *ngIf="isCurrent">{{ weather.date | timeFormat:'short' }}</p>
     </div>
   </div>
 
   <div class="weather-main">
     <div class="temperature-section">
-      <div class="temperature" [style.color]="getTemperatureColor(weather.temperature)">
-        {{ weather.temperature }}°C
+      <div class="temperature" appTemperatureColor [appTemperatureColor]="weather.temperature">
+        {{ weather.temperature | number:'1.0-0' }}°C
       </div>
       <div class="feels-like">
-        Feels like {{ weather.feelsLike }}°C
+        Feels like {{ weather.feelsLike | number:'1.0-0' }}°C
       </div>
     </div>
     
     <div class="weather-icon">
-      {{ getWeatherIcon(weather.condition) }}
+      {{ weather.condition | weatherIcon }}
     </div>
   </div>
 
   <div class="weather-details">
     <div class="condition">
-      <span class="condition-text">{{ weather.condition }}</span>
+      <span class="condition-text">{{ weather.condition | titlecase }}</span>
+      <p class="weather-tip">{{ weather.condition | weatherDescription }}</p>
     </div>
     
     <!-- Show detailed weather info only for current weather -->
     <div class="details-grid" *ngIf="isCurrent">
       <div class="detail-item">
         <span class="detail-label">Humidity</span>
-        <span class="detail-value">{{ weather.humidity }}%</span>
+        <span class="detail-value">{{ weather.humidity | number:'1.0-0' }}%</span>
       </div>
       <div class="detail-item">
         <span class="detail-label">Wind</span>
-        <span class="detail-value">{{ weather.windSpeed }} km/h</span>
+        <span class="detail-value">{{ weather.windSpeed | number:'1.0-0' }} km/h</span>
       </div>
       <div class="detail-item">
         <span class="detail-label">Pressure</span>
-        <span class="detail-value">{{ weather.pressure }} hPa</span>
+        <span class="detail-value">{{ weather.pressure | number:'1.0-0' }} hPa</span>
       </div>
       <div class="detail-item">
         <span class="detail-label">Visibility</span>
-        <span class="detail-value">{{ weather.visibility }} km</span>
+        <span class="detail-value">{{ weather.visibility | number:'1.0-0' }} km</span>
       </div>
     </div>
   </div>
 
-  <div class="temperature-range" *ngIf="!isCurrent">
+  <div class="temperature-range" *ngIf="!isCurrent && weather.minTemp !== undefined && weather.maxTemp !== undefined">
     <div class="min-temp">
       <span class="temp-label">Min</span>
-      <span class="temp-value">{{ weather.minTemp }}°C</span>
+      <span class="temp-value" appTemperatureColor [appTemperatureColor]="weather.minTemp">{{ weather.minTemp | number:'1.0-0' }}°C</span>
     </div>
     <div class="max-temp">
       <span class="temp-label">Max</span>
-      <span class="temp-value">{{ weather.maxTemp }}°C</span>
+      <span class="temp-value" appTemperatureColor [appTemperatureColor]="weather.maxTemp">{{ weather.maxTemp | number:'1.0-0' }}°C</span>
     </div>
   </div>
 </div>
